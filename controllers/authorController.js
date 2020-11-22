@@ -1,7 +1,6 @@
 var Author = require('../models/author')
 var async = require('async')
 var Book = require('../models/book')
-var debug = require('debug')('author');
 
 const { body,validationResult } = require("express-validator");
 
@@ -43,19 +42,9 @@ exports.author_detail = function (req, res, next) {
 
 };
 
-// Display Author update form on GET
-exports.author_update_get = function(req, res, next) {   
-    
-    req.sanitize('id').escape().trim();
-    Author.findById(req.params.id, function(err, author) {
-        if (err) {
-            debug('update error:' + err);
-            return next(err);
-        }
-        //On success
-        res.render('author_form', { title: 'Update Author', author: author });
-    });
-
+// Display Author create form on GET.
+exports.author_create_get = function (req, res, next) {
+    res.render('author_form', { title: 'Create Author' });
 };
 
 // Handle Author create on POST.
